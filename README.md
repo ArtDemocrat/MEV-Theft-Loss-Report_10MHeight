@@ -5,7 +5,7 @@ Authored by: @ArtDemocrat @ramana a.k.a. xrchz
 
 --> It serves as a continuation of Bounty BA032304, where @ramana and @Valdorff produced the first iteration of an MEV Theft analysis for the Rocket Pool protocol in July 2023.
 
-This repository holds all the revised documentation, scripts, and results which serve as a follow-up to the initial Rocket Pool "MEV-Theft-Loss-Report covering slots up to height 8.5M (https://github.com/ArtDemocrat/MEV-Theft-Loss-Report/tree/main), conducted in March 2024. 
+This repository holds all the revised documentation, scripts, and results which serve as a follow-up to the initial Rocket Pool ["MEV-Theft-Loss-Report"](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report/tree/main) covering slots up to height 8.5M, conducted in March 2024. 
 
 ## Introduction & Goals
 This analysis investigates the prevalence and patterns of MEV (Maximal Extractable Value) reward misappropriation within the Rocket Pool staking protocol. Specifically, it identifies and classifies block proposals where MEV rewards were potentially withheld from the intended smoothing pool recipients or diverted away from the protocol-defined fee recipients in the case of non-opted-in validator setups. The dataset covers all Ethereum slots from slot 5,203,000 to 9,899,999, applying systematic data quality checks, slot classification, and theft detection logic. The goal is to quantify and structure evidence of MEV theft behavior and its financial impact across different validator types.
