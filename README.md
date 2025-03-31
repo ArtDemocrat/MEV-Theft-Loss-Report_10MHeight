@@ -1,7 +1,9 @@
 # MEV-Theft-Loss-Report_10MHeight
 Authored by: @ArtDemocrat @ramana a.k.a. xrchz
+
 --> This report has been produced as a result of the Rocket Pool Grant Request: https://dao.rocketpool.net/t/round-15-gmc-call-for-grant-applications-deadline-is-august-7/3103/2
---> It serves as a continuation of Bounty BA032304, which produced 
+
+--> It serves as a continuation of Bounty BA032304, where @ramana and @Valdorff produced the first iteration of an MEV Theft analysis for the Rocket Pool protocol.
 
 This repository holds all the revised documentation, scripts, and results which serve as a follow-up to the initial Rocket Pool "MEV-Theft-Loss-Report covering slots up to height 8.5M (https://github.com/ArtDemocrat/MEV-Theft-Loss-Report/tree/main), conducted in March 2024. 
 
