@@ -18,10 +18,10 @@ During the [first research phase](https://github.com/ArtDemocrat/MEV-Theft-Loss-
 
 As stated in the grant request, the benefits we look to generate out of this report are as follows:
 
-- 🔸 **Potential rETH holders:** rETH’s APR can be proactively protected by shedding light on this matter and acting on time. A competitive rETH EPR is tablestakes to drive demand towards rETH.
+- 🔸 **Potential rETH holders:** rETH’s APR can be proactively protected by shedding light on this matter and acting on time. A competitive rETH EPR is essential to drive demand towards rETH.
 - 🔸 **rETH holders:** Same as above.
 - 🔸 **Potential Node Operators (NOs):** Higher staking APR by enforcing MEV relayer usage (either individually or for the entire smoothing pool NO cohort).
-- 🔸 **Community:** Sensitize the Rocket Pool community to the relevance of honest acting (as we observe and report misbehaviour) and to the maximization of MEV rewards for the sake of protocol competitiveness.
+- 🔸 **Community:** Sensitize the Rocket Pool community to the relevance of honest acting (as we observe and report misbehaviour) and to the maximization of MEV rewards for protocol competitiveness.
 - 🔸 **RPL holders:** See points above → demand to mint/create rETH and Rocket Pool validators → direct buying pressure (to spin-up validators) and indirect RPL buying pressure (secondary market premium = incentives to spin-up validators).
 
 The analysis starts right after the MEV grace period ended at slot 5203679 (2022-11-24 05:35:39Z UTC; see https://discord.com/channels/405159462932971535/405163979141545995/1044108182513012796), and ends at slot 9,899,999 (2024-09-06 12:00:11Z UTC). We will name this set of datapoints "the entire distribution" in this analysis.
@@ -63,7 +63,7 @@ The dataset used in this analysis underwent a structured preparation and classif
 - Summary Report: Lists total files checked, total unique slots found, total expected slots, total missing slots, total duplicate slots, and list of broken/unreadable files (if any).
 
 **Integrity and Data Quality Results**
-```
+
 📄 **Per File Report:**
 | File                            | Row Count   | Size     | Size Anomaly   |   Min Slot |   Max Slot |   Non-Numeric Slots |
 |---------------------------------|-------------|----------|----------------|------------|------------|---------------------|
@@ -113,7 +113,7 @@ The dataset used in this analysis underwent a structured preparation and classif
 | rt2_slot-9600000-to-9699999.csv | 100,000     | 50.99 MB | ✅ No           |    9600000 |    9699999 |                   0 |
 | rt2_slot-9700000-to-9799999.csv | 100,000     | 50.94 MB | ✅ No           |    9700000 |    9799999 |                   0 |
 | rt2_slot-9800000-to-9899999.csv | 100,000     | 51.00 MB | ✅ No           |    9800000 |    9899999 |                   0 |
-
+```
 📌 **Summary Report:**
 
 🔸 Total Files Checked: 46
@@ -161,6 +161,7 @@ Step 1: Full dataset created: 4597000 rows, 28 columns
 Step 2: Dropped rows with no max bid or missed blocks: 196305 rows
 Step 3: Dropped rows due to invalid `is_rocketpool` values: 0 rows
 Step 4: Final dataset size: 4400695 rows, 29 columns
+```
 | Range        |   # of Slots |   # of RP Slots |   # of non-RP Slots | K-S statistic                   | p-value                         |
 |--------------|--------------|-----------------|---------------------|---------------------------------|---------------------------------|
 | 0-0.01 ETH   |        15345 |             440 |               14905 | :white_check_mark: 0.0261405569 | :white_check_mark: 0.9248525964 |
@@ -169,7 +170,7 @@ Step 4: Final dataset size: 4400695 rows, 29 columns
 | 1-10 ETH     |        46765 |            1223 |               45542 | :white_check_mark: 0.0213307993 | :white_check_mark: 0.6424829761 |
 | >10 ETH      |         2302 |              62 |                2240 | :warning: 0.0888680876          | :white_check_mark: 0.6930415397 |
 | Total        |      4400695 |          116336 |             4284359 | :white_check_mark: 0.0043637520 | :warning: 0.0266949435          |
-```
+
 It is worth mentioning that the p-value test on the total dataset yields a p-value below the conventional ≤ 0.05 threshold. However, the corresponding K-S statistic is extremely small (~0.004), indicating that the difference, while statistically significant due to the large dataset size, is negligible in practical terms. Range-wise analysis shows no significant differences in most ranges.
 
 ### Results Analysis: Systematic MEV Loss
