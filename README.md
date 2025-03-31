@@ -189,12 +189,12 @@ First we begin by plotting the MEV rewards of each slot where we deemed the fee 
 
 📄 **Theft Summary:**
 
-| Theft Type           | Total Flagged   | Reward = 0     | Reward > 0   |   Sum of MEV Reward (ETH) |   Estimated Missed Revenue (ETH) |
+| Theft Type           | Total Flagged   | Reward = 0     | Reward > 0   |  Stolen MEV Rewards (ETH) |   Neglected/Stolen Revenue (ETH) |
 |----------------------|-----------------|----------------|--------------|---------------------------|----------------------------------|
-| Smoothing Pool Theft | 4,222           | 4,149 (98.27%) | 73 (1.73%)   |                    6.0876 |                          364.113 |
-| Regular Theft        | 3,642           | 3,623 (99.48%) | 19 (0.52%)   |                    2.2777 |                          347.465 |
+| Smoothing Pool Theft | 4,222           | 4,149 (98.27%) | 73 (1.73%)   |                      6.09 |                           364.11 |
+| Regular Theft        | 3,642           | 3,623 (99.48%) | 19 (0.52%)   |                      2.28 |                           347.46 |
 
-As seen from the nubmers above, we identified 92 cases (73 in the smoothing pool and 19 among non-opt-in validators) where a mev_reward amount was observed in the slot and was sent to an incorrect fee recipient. Additionally, there are 4,149 cases within the smoothing pool and 3,623 cases among non-opt-in validators where even if an mev_reward was not registered for the slot (i.e. mev = 0), an incorrect usage of the fee recipient is observed. These cases sum-up to a loss/theft of 711,58 ETH if we take the max_bid data available for these slots as a proxy for the ETH which could have been stolen (i.e. a worst case scenario estimation). The MEV loss related to these slots is covered in the following section of this report ("Neglected Revenue"), since they fall under the category of "vanilla blocks" due to the absence of an MEV relayer and mev_reward for the proposed block. 
+As seen from the nubmers above, we identified 92 cases (73 in the smoothing pool and 19 among non-opt-in validators) where a mev_reward amount was observed in the slot and was sent to an incorrect fee recipient. Additionally, there are 4,149 cases within the smoothing pool and 3,623 cases among non-opt-in validators where even if an mev_reward was not registered for the slot (i.e. mev = 0), an incorrect usage of the fee recipient is observed. These cases sum-up to a neglected/potentially stolen revenue of 711,58 ETH if we take the max_bid data available for these slots as a proxy for the ETH which could have been stolen (i.e. a worst case scenario estimation). The MEV loss related to these slots is covered in the following section of this report ("Neglected Revenue"), since they fall under the category of "vanilla blocks" due to the absence of an MEV relayer and mev_reward for the proposed block. 
 
 In the chart below we plot the 92 cases of theft split between smoothing pool vs the non-opt-in cases. The Y axis shows the magnitude of the 93 stolen MEV rewards (Y axis) and the slot where these took place is shown in the X axis). Theft has clearly become more prevalent towards recent slots.
 
@@ -337,7 +337,8 @@ It is worth mentioning that even though sending MEV rewards to the [rETH contrac
 #### Conclusion:
 - While 92 theft cases out of 116,336 Rocketpool block proposals analyzed in this time series represent a low incidence of 0.07%, it seems that theft is a phenomenon which is happening continuously within the protocol.
 - Secondly, MEV theft incidence seems to have become more prevalent in recent slots.
-- Finally, if we consider not only the 92 slots where an mev_reward was observerd for the block, but rather the total (4,222+3,642)= 7,864 cases where an incorrect fee recipient was used, the theft incidence within RP climbs to 6.7%.
+- We see 5 cases of node operators committing serial theft (>2 theft episodes) which, consciously or unconsciously, make up >70% of the stolen misappropriated MEV reeward amount (8.37 ETH).
+- Finally, if we consider not only the 92 slots where an mev_reward was observerd for the block, but rather the total (4,222+3,642)= 7,864 cases where an incorrect fee recipient was used, the theft incidence within RP climbs to 6.7%. This is a far more dangerous and material revenue loss area which we cover in the next section: "Neglected Revenue".
 
 #### MEV Loss Analysis Results - Neglected Revenue (Script: YYY)
 
