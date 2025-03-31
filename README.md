@@ -19,15 +19,9 @@ During the [first research phase](https://github.com/ArtDemocrat/MEV-Theft-Loss-
 As stated in the grant request, the benefits we look to generate out of this report are as follows:
 
 🔸Potential rETH holders: rETH’s APR can be proactively protected by shedding light on this matter and acting on time. A competitive rETH EPR is tablestakes to drive demand towards rETH.
-
 🔸rETH holders	same as above
-
 🔸Potential NOs	Higher staking APR by enforcing MEV relayer usage (either individually, or for the entire smoothing pool NO cohort).
-
-🔸NOs	N/A
-
 🔸Community	Sensitize the Rocket Pool community to the relevance of honest acting (as we observe and report misbehaviour), and to the maximization of MEV rewards for the sake of protocol competitiveness.
-
 🔸RPL holders	see points above → demand to mint/create rETH and Rocket Pool validators → direct buying pressure (to spin-up validators) and indirect RPL buying pressure (secondary market premium = incentives to spin-up validators)
 
 The analysis starts right after the MEV grace period ended at slot 5203679 (2022-11-24 05:35:39Z UTC; see https://discord.com/channels/405159462932971535/405163979141545995/1044108182513012796), and ends at slot 9,899,999 (2024-09-06 12:00:11Z UTC). We will name this set of datapoints "the entire distribution" in this analysis.
