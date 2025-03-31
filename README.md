@@ -17,11 +17,17 @@ During the [first research phase](https://github.com/ArtDemocrat/MEV-Theft-Loss-
 - @NonFungibleYokem’s mevmonitor database
 
 As stated in the grant request, the benefits we look to generate out of this report are as follows:
+
 🔸Potential rETH holders: rETH’s APR can be proactively protected by shedding light on this matter and acting on time. A competitive rETH EPR is tablestakes to drive demand towards rETH.
+
 🔸rETH holders	same as above
+
 🔸Potential NOs	Higher staking APR by enforcing MEV relayer usage (either individually, or for the entire smoothing pool NO cohort).
+
 🔸NOs	N/A
+
 🔸Community	Sensitize the Rocket Pool community to the relevance of honest acting (as we observe and report misbehaviour), and to the maximization of MEV rewards for the sake of protocol competitiveness.
+
 🔸RPL holders	see points above → demand to mint/create rETH and Rocket Pool validators → direct buying pressure (to spin-up validators) and indirect RPL buying pressure (secondary market premium = incentives to spin-up validators)
 
 The analysis starts right after the MEV grace period ended at slot 5203679 (2022-11-24 05:35:39Z UTC; see https://discord.com/channels/405159462932971535/405163979141545995/1044108182513012796), and ends at slot 9,899,999 (2024-09-06 12:00:11Z UTC). We will name this set of datapoints "the entire distribution" in this analysis.
@@ -173,7 +179,9 @@ It is worth mentioning that the p-value test on the total dataset yields a p-val
 
 ### Results Analysis: Systematic MEV Loss
 Once that we confirmed that RP validators stand on a level playing field with non-RP validators, we proceed to analyze cases of revenue loss within the RP protocol. In order to analyze MEV loss cases we define 2 types of revenue losses for the RP protocol (red arrows in the image below):
+
 1. **MEV Theft**: the fee recipient for a block (according to either the relay's payload if mev_reward is present, or the Beacon chain otherwise) was incorrect. This happens when the fee recipient is not set to either the smoothing pool ("SP") if a node is opted-in the SP, or the node's fee recipient otherwise.
+
 2. **Neglected Revenue**: the node proposes a vanilla block, losing profits against a scenario where an MEV-boost-optimized block (with traditionally higher MEV rewards) could have been proposed.
 
 ![RP MEV Flows](https://github.com/user-attachments/assets/dda404ad-ed26-42f9-9fd0-1ba51f607086)
