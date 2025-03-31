@@ -1,7 +1,7 @@
 # MEV-Theft-Loss-Report_10MHeight
 Authored by: @ArtDemocrat @ramana a.k.a. xrchz
 
---> This report has been produced as a result of the Rocket Pool Grant Request: https://dao.rocketpool.net/t/round-15-gmc-call-for-grant-applications-deadline-is-august-7/3103/2
+--> This report has been produced as a result of this [Rocket Pool Grant Round 15 Request](https://dao.rocketpool.net/t/round-15-gmc-call-for-grant-applications-deadline-is-august-7/3103/2#p-9565-rocket-pool-mev-theft-and-loss-report-grant-application-1), [approved by the GMC](https://discord.com/channels/1109303903767507016/1273700317673820292/1301176881864900619) on the 30th of Octobober, 2024. 
 
 --> It serves as a continuation of Bounty BA032304, where @ramana and @Valdorff produced the first iteration of an MEV Theft analysis for the Rocket Pool protocol in July 2023.
 
@@ -344,3 +344,15 @@ It is worth mentioning that even though sending MEV rewards to the [rETH contrac
 #### Notes on Neglected Revenue Data
 
 #### Conclusions and Recommendations
+
+
+**Authored by:**
+<p align="left">
+  <img width="70" height="70" src="https://github.com/ArtDemocrat/MEVLossTracker/assets/137831205/da012a89-2ec8-4e2f-bd8d-6f4b7fec0a72">
+</p>
+
+**@ArtDemocrat**
+
+</p>
+  <img width="70" height="70" src="https://github.com/ArtDemocrat/MEVLossTracker/assets/137831205/5254358c-efca-482c-b9ff-67484da15be0">
+</p>
