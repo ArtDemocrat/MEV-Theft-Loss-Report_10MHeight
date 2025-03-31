@@ -189,10 +189,10 @@ First we begin by plotting the MEV rewards of each slot where we deemed the fee 
 
 📄 **Theft Summary:**
 
-| Theft Type           | Total Flagged   | Reward = 0     | Reward > 0   |  Stolen MEV Rewards (ETH) |   Neglected/Stolen Revenue (ETH) |
-|----------------------|-----------------|----------------|--------------|---------------------------|----------------------------------|
-| Smoothing Pool Theft | 4,222           | 4,149 (98.27%) | 73 (1.73%)   |                      6.09 |                           364.11 |
-| Regular Theft        | 3,642           | 3,623 (99.48%) | 19 (0.52%)   |                      2.28 |                           347.46 |
+| Theft Type           | Total Flagged   | Reward = 0     | Reward > 0     |  Stolen MEV Rewards (ETH) |   Neglected/Stolen Revenue (ETH) |
+|----------------------|-----------------|----------------|----------------|---------------------------|----------------------------------|
+| Smoothing Pool Theft | 4,222           | 4,149 (98.27%) | 73 (1.73%)     |                      6.09 |                           364.11 |
+| Regular Theft        | 3,642           | 3,623 (99.48%) | 19 (0.52%)     |                      2.28 |                           347.46 |
 
 As seen from the nubmers above, we identified 92 cases (73 in the smoothing pool and 19 among non-opt-in validators) where a mev_reward amount was observed in the slot and was sent to an incorrect fee recipient. Additionally, there are 4,149 cases within the smoothing pool and 3,623 cases among non-opt-in validators where even if an mev_reward was not registered for the slot (i.e. mev = 0), an incorrect usage of the fee recipient is observed. These cases sum-up to a neglected/potentially stolen revenue of 711,58 ETH if we take the max_bid data available for these slots as a proxy for the ETH which could have been stolen (i.e. a worst case scenario estimation). The MEV loss related to these slots is covered in the following section of this report ("Neglected Revenue"), since they fall under the category of "vanilla blocks" due to the absence of an MEV relayer and mev_reward for the proposed block. 
 
