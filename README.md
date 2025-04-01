@@ -349,10 +349,6 @@ The second case of revenue loss for the RP protocol is driven by validators whic
 
 Regarding the last bullet piont, in case we overlooked drivers which could be actionable by by the RP protocol in order to close the gap of MEV capture vs the theoretical maximum, we would appreciate the community's input on this in this research's retroactive grant posted in the RP governance forum.
 
-In order to visually represent the loss driven by vanilla blocks we present the chart below which plots the distribution of the 7,364 slots where vanilla blocks were proposed by RP validators. We see a random distribution which tends to become less prevalent towards recent slots (potentially due to the protocol moving MEV Capture [Phase 2 "Opt-out"](https://docs.rocketpool.net/guides/node/mev#phase-2-opt-out) after November 2022). However, as of slot 8.5-8.6M, we see a sudden increase in vanilla slots being proposed, mainly within the smoothing pool. While we are not sure about what might have driven this, we [asked the community](https://discord.com/channels/405159462932971535/405163713063288832/1356617261372412236) to share anecdotal feedback which could help us shape a conclusion. One recommendation of this report is to move to MEV capture Phase 3 "Required" as soon as possible, in order to minimize the losses aforementioned losses due to vanilla block proposals. The selection of regulated vs non-regulated relayer usage should continue to be defined entirely, needless to say, by each node operator's preferences.
-
-![Neglected MEV Reward per Slot by SP Status](https://github.com/user-attachments/assets/f354c1d5-880c-4cc7-ad83-778ed80508b4)
-
 **Analysis Data:**
 ```
 📄 **Vanilla Block Summary (Strict Logic, Max Bid Slots Only):**
@@ -375,7 +371,12 @@ Total missed opportunity (MEV reward gap): 2508.9715 ETH
 Rocketpool Vanilla Block %: 6.20% (7364 out of 118728 slots)
 Non-Rocketpool Vanilla Block %: 6.03% (263934 out of 4375301 slots)
 ```
-**Analysis Tables:**
+
+In order to visually represent the loss driven by vanilla blocks we present the chart below which plots the distribution of the 7,364 slots where vanilla blocks were proposed by RP validators. We see a random distribution which tends to become less prevalent towards recent slots (potentially due to the protocol moving MEV Capture [Phase 2 "Opt-out"](https://docs.rocketpool.net/guides/node/mev#phase-2-opt-out) after November 2022). However, as of slot 8.5-8.6M, we see a sudden increase in vanilla slots being proposed, mainly within the smoothing pool. While we are not sure about what might have driven this, we [asked the community](https://discord.com/channels/405159462932971535/405163713063288832/1356617261372412236) to share anecdotal feedback which could help us shape a conclusion. One recommendation of this report is to move to MEV capture Phase 3 "Required" as soon as possible, in order to minimize the losses aforementioned losses due to vanilla block proposals. The selection of regulated vs non-regulated relayer usage should continue to be defined entirely, needless to say, by each node operator's preferences.
+
+![Neglected MEV Reward per Slot by SP Status](https://github.com/user-attachments/assets/f354c1d5-880c-4cc7-ad83-778ed80508b4)
+
+**Analysis Tables: Top Revenue Loss drivers for Vanilla Blocks and Max Bid Gaps**
 📄 **Top 20 Node Operators (Vanilla Block Losses):**
 
 |    | node_address                               |   vanilla_block_count |   eth_mev_loss | % of total loss   |
@@ -431,7 +432,7 @@ Quantifying the losses incurred by vanilla blocks is a complex task since we can
 
 - Some relayers don't always make their MEV bid data available to the public, which could cause a wrong classification of vanilla blocks while these blocks actually had a bid from a relayer. For the scope of this report, we simply classify slots with no RP-approved relayer in our dataset (see specifics around the underlying dataset here) as vanilla blocks.
 - If a validator is not registered with any MEV relayer in a slot, no max_bid will be visible in the dataset. For the purposes of this analysis, we ignore these slots from the vanilla block dataset when calculating the revenue loss due to vanilla blocks. These blocks are also ingored from the dataset used to calculate the loss due to bid gaps (i.e. the reward accepted is lower than the max bid available to the node operator in that slot).
-- See other important data caveats for the underlying dataset here (XXX).
+- See other important data caveats for the underlying dataset here https://github.com/xrchz/rockettheft/blob/main/README.md#data-notes (XXX Ramana to confirm).
 
 #### Conclusions and Recommendations
 
