@@ -136,7 +136,7 @@ The Kolmogorov-Smirnov (K-S) test is a non-parametric test that compares two sam
 - **p-value**: A small p-value (typically ≤ 0.05) suggests that the samples come from different distributions. If this value is less than or equal to 0.05, the difference in distributions is considered statistically significant, meaning it's unlikely the difference is due to random chance.
 
 #### Consistency Check - Global Conclusion (Analysis Script: YYY)
-If we take a look at the entire distribution of slots which had max_bid, **we see no evidence that RP gets better or worse bids vs non-RP validators**.
+If we take a look at the entire distribution of slots which had max bids (i.e. an offer was received by at least one MEV relayer), **we see no evidence that RP gets better or worse bids vs non-RP validators**.
 
 Analysis for slots with MEV rewards between 10**-5 ETH and 10**5 ETH (exhaustive range):
 ```
@@ -194,7 +194,7 @@ First we begin by plotting the MEV rewards of each slot where we deemed the fee 
 | Smoothing Pool Theft | 4,222           | 4,149 (98.27%) | 73 (1.73%)     |                      6.09 |                           364.11 |
 | Regular Theft        | 3,642           | 3,623 (99.48%) | 19 (0.52%)     |                      2.28 |                           347.46 |
 
-As seen from the nubmers above, we identified 92 cases (73 in the smoothing pool and 19 among non-opt-in validators) where a mev_reward amount was observed in the slot and was sent to an incorrect fee recipient. Additionally, there are 4,149 cases within the smoothing pool and 3,623 cases among non-opt-in validators where even if an mev_reward was not registered for the slot (i.e. mev = 0), an incorrect usage of the fee recipient is observed. These cases sum-up to a neglected/potentially stolen revenue of 711,58 ETH (approx 0.12% APR) if we take the max_bid data available for these slots as a proxy for the ETH which could have been stolen (i.e. a worst case scenario estimation). The MEV loss related to these slots is covered in the following section of this report ("Neglected Revenue"), since they fall under the category of "vanilla blocks" due to the absence of an MEV relayer and mev_reward for the proposed block. 
+As seen from the nubmers above, we identified 92 cases (73 in the smoothing pool and 19 among non-opt-in validators) where a mev_reward amount was observed in the slot and was sent to an incorrect fee recipient. Additionally, there are 4,149 cases within the smoothing pool and 3,623 cases among non-opt-in validators where even if an mev_reward was not registered for the slot (i.e. mev = 0), an incorrect usage of the fee recipient is observed. These cases sum-up to a neglected/potentially stolen revenue of 711,58 ETH if we take the maximum bid data available for these slots as a proxy for the ETH which could have been stolen (i.e. a worst case scenario estimation). The MEV loss related to these slots is covered in the following section of this report ("Neglected Revenue"), since they fall under the category of "vanilla blocks" due to the absence of an MEV relayer and mev_reward for the proposed block. 
 
 In the chart below we plot the 92 cases of theft split between smoothing pool vs the non-opt-in cases. The Y axis shows the magnitude of the 93 stolen MEV rewards (Y axis) and the slot where these took place is shown in the X axis). Theft has clearly become more prevalent towards recent slots.
 
@@ -341,8 +341,97 @@ It is worth mentioning that even though sending MEV rewards to the [rETH contrac
 - Finally, if we consider not only the 92 slots where an mev_reward was observerd for the block, but rather the total (4,222+3,642)= 7,864 cases where an incorrect fee recipient was used, the theft incidence within RP climbs to 6.7%. This is a far more dangerous and material revenue loss area which we cover in the next section: "Neglected Revenue".
 
 #### MEV Loss Analysis Results - Neglected Revenue (Script: YYY)
+The second case of revenue loss for the RP protocol is driven by validators which do not choose maximize the MEV rewards made available to them by the Ethereum MEV supply chain. This happens when a RP validator does not register with any MEV relayer and produces so called "vanilla blocks". These blocks don't follow the transaction-ordering reward-maximizing logic which MEV searchers, builders, and relayers pass on to validators. For the purpose of this analysis, vanilla blocks were quantified based on the slots where no MEV reward data was registered for a slot from any of the three MEV sources utilized. Based on this logic, we can conclude the following:
+
+- Vanilla blocks have been proposed by RP validators in 7,364 slots since the grace period ended (3,8k smoothing pool operators and 3,6k non-opted-in operators).
+- This leads to a total loss revenue of 744,02 ETH for Rocket Pool (376.65 ETH loss for the SP, and 367.37 loss outside of of the SP). This decreased the protocol's APY by 9bps ("basis points"), assuming [696,871.94 ETH Staked in Minipools](https://discord.com/channels/405159462932971535/405503016234385409/1356612406557671604). The amount of ETH loss in the APR calculation corresponds to a timeframe larger than 12 months (i.e the grace period ended in November 2022, and slot 9,899,999 took place on 2024-09-06 12:00:11Z UTC). Therefore, since it is not not accurate, the APR loss calculation simply aims to give a sense of the magnitude of the APR loss RP faces on this front.
+- A second level revenue loss exists from node operators who accept an MEV bid which is lower than the max bids registerd for a validator in a particular slot. This can be due to several reasons which typically cannot be influenced by RP (such as a validator avoiding unregulated relayers, see details here). However, it is worth noting that if we simply observe the sum of MEV ewards captured by RP validators in the analyzed period (12,631.81 ETH) and compare it with the sum of maximum bids which could have theoretically been captured by RP validators (15,140.78 ETH), capturing that difference (2,508.97 ETH) would derive on a 36bps APR improvement on RP's current staked capital. Here again, the timelines observed are longer than 12 months, and the APR calculation is shared purely for illustrative purposes.
+
+Regarding the last bullet piont, in case we overlooked drivers which could be actionable by by the RP protocol in order to close the gap of MEV capture vs the theoretical maximum, we would appreciate the community's input on this in this research's retroactive grant posted in the RP governance forum.
+
+In order to visually represent the loss driven by vanilla blocks we present the chart below which plots the distribution of the 7,364 slots where vanilla blocks were proposed by RP validators. We see a random distribution which tends to become less prevalent towards recent slots (potentially due to the protocol moving MEV Capture [Phase 2 "Opt-out"](https://docs.rocketpool.net/guides/node/mev#phase-2-opt-out) after November 2022). However, as of slot 8.5-8.6M, we see a sudden increase in vanilla slots being proposed, mainly within the smoothing pool. While we are not sure about what might have driven this, we [asked the community](https://discord.com/channels/405159462932971535/405163713063288832/1356617261372412236) to share anecdotal feedback which could help us shape a conclusion. One recommendation of this report is to move to MEV capture Phase 3 "Required" as soon as possible, in order to minimize the losses aforementioned losses due to vanilla block proposals. The selection of regulated vs non-regulated relayer usage should continue to be defined entirely, needless to say, by each node operator's preferences.
+
+![Neglected MEV Reward per Slot by SP Status](https://github.com/user-attachments/assets/f354c1d5-880c-4cc7-ad83-778ed80508b4)
+
+**Analysis Data:**
+```
+📄 **Vanilla Block Summary (Strict Logic, Max Bid Slots Only):**
+
+Total RP Slots with max bid: 118,728
+Number of RP Vanilla Blocks: 7,364
+ - In Smoothing Pool: 3,813
+ - Not in Smoothing Pool: 3,551
+Total ETH neglect in smoothing pool: 376.6528 ETH
+Total ETH neglect outside smoothing pool: 367.3713 ETH
+% of MEV-neglect slots within Rocketpool: 3.21%
+% of MEV-neglect slots outside Rocketpool: 2.99%
+
+Total ETH rewards accepted by RP validators: 12631.8117 ETH
+Total ETH rewards offered to RP validators: 15140.7832 ETH
+Total missed opportunity (MEV reward gap): 2508.9715 ETH
+
+📄 **Vanilla Block % Summary (Max Bid Slots Only):**
+
+Rocketpool Vanilla Block %: 6.20% (7364 out of 118728 slots)
+Non-Rocketpool Vanilla Block %: 6.03% (263934 out of 4375301 slots)
+```
+**Analysis Tables:**
+📄 **Top 20 Node Operators (Vanilla Block Losses):**
+
+|    | node_address                               |   vanilla_block_count |   eth_mev_loss | % of total loss   |
+|----|--------------------------------------------|-----------------------|----------------|-------------------|
+|  0 | 0xca317A4ecCbe0Dd5832dE2A7407e3c03F88b2CdD |                   946 |      110.428   | 31.64%            |
+|  1 | 0xb8ed9ea221bf33d37360A76DDD52bA7b1E66AA5C |                   537 |       68.2818  | 19.56%            |
+|  2 | 0x17Fa597cEc16Ab63A7ca00Fb351eb4B29Ffa6f46 |                   154 |       24.3688  | 6.98%             |
+|  3 | 0x9A8dc6dcD9fDC7efAdbED3803bf3Cd208C91d7C1 |                    83 |       24.1942  | 6.93%             |
+|  4 | 0x66283163ACAb1BB1aF6b6cE7E05e1C81E1328e32 |                   244 |       23.2882  | 6.67%             |
+|  5 | 0xdBC41aEAeA480459386feeC0C575F7ca56e8FfF1 |                   116 |       13.1932  | 3.78%             |
+|  6 | 0xCc00b35a6bb67C54B174058C809Ec838f360Dd88 |                   113 |       10.8815  | 3.12%             |
+|  7 | 0xbC903584838678bEEc9902b744252822a6d546C2 |                     7 |        8.31287 | 2.38%             |
+|  8 | 0xaCfAd9f0D80F74aD7E280A55eA025f4f09844B0F |                    64 |        8.29043 | 2.38%             |
+|  9 | 0xb9dceed24c70e2B0303a03d97A79732CCACdd471 |                    67 |        6.14267 | 1.76%             |
+| 10 | 0xc5D291607600044348E5014404cc18394BD1D57d |                    68 |        5.99047 | 1.72%             |
+| 11 | 0xcf893845C90Ede75106Bbcd402EFC792F6C5b4BF |                    48 |        5.80612 | 1.66%             |
+| 12 | 0x5008724186728Bbd5CDddafb00C08B83Be57961B |                    39 |        5.77757 | 1.66%             |
+| 13 | 0xCC27D4212D9333Ef941533Ea67bFef66f38Bf0d8 |                    82 |        5.65725 | 1.62%             |
+| 14 | 0x9cc778D26fCd8555Cb188a35Dca8cCF1634d76E9 |                    41 |        5.299   | 1.52%             |
+| 15 | 0x751683968FD078341C48B90bC657d6bAbc2339F7 |                     9 |        5.28673 | 1.51%             |
+| 16 | 0x03d2634F6b03B24F835bE14F8807B58E6acD14cB |                    36 |        4.70767 | 1.35%             |
+| 17 | 0x0cb961e87f6b7a7Ce4E92d1ba653E2A2b5b1D9B9 |                     3 |        4.51627 | 1.29%             |
+| 18 | 0xd714338098Daaf32e46a20fF1293f57EFf04Dcca |                    36 |        4.33561 | 1.24%             |
+| 19 | 0xF6b216dd90873d07e45635AfBBCd1B46A490dd7b |                    52 |        4.2848  | 1.23%             |
+
+📄 **Top 20 Node Operators (Bid Gap Losses):**
+
+|    | node_address                               |   blocks_with_gap |   eth_gap_to_maxbid | % of total loss   |
+|----|--------------------------------------------|-------------------|---------------------|-------------------|
+|  0 | 0x17Fa597cEc16Ab63A7ca00Fb351eb4B29Ffa6f46 |              5134 |             83.0857 | 15.62%            |
+|  1 | 0x7C5d0950584F961f5c1054c88a71B01207Bf9CB7 |              1923 |             41.0584 | 7.72%             |
+|  2 | 0xb8ed9ea221bf33d37360A76DDD52bA7b1E66AA5C |              1181 |             32.648  | 6.14%             |
+|  3 | 0x6BBbA538C14D36eE92dd3941Afe52736c5cFb842 |              2112 |             29.9139 | 5.63%             |
+|  4 | 0xacB7CFB56D6835d9E2Fa3E3F273A0450468082D9 |              1800 |             27.6829 | 5.21%             |
+|  5 | 0xB81E87018Ec50d17116310c87b36622807581fa6 |              2288 |             26.7991 | 5.04%             |
+|  6 | 0xD5418D3289321A68BC70184D1A5240F5154F5C07 |               270 |             25.1577 | 4.73%             |
+|  7 | 0x895F6558f0b02F95F48EF0d580eC885056dcCCC6 |              1865 |             24.7814 | 4.66%             |
+|  8 | 0xAFE9ae00478b2997E0F8F264b144be74bd3c7F95 |               311 |             24.3231 | 4.57%             |
+|  9 | 0x663CbbD93B5eE095AC8386C2a301EB1C47D73aA9 |              1847 |             24.0399 | 4.52%             |
+| 10 | 0xfd0166b400EAD071590F949c6760d1cCc1AfC967 |              1280 |             22.2402 | 4.18%             |
+| 11 | 0xc1A95D5F674F809b80D768c12cAd12fbEB5c370c |              1010 |             22.1863 | 4.17%             |
+| 12 | 0xCC27D4212D9333Ef941533Ea67bFef66f38Bf0d8 |                45 |             21.4108 | 4.03%             |
+| 13 | 0x22FFBA127F6741a619fa145516EF4D94B90f093A |              1377 |             20.0877 | 3.78%             |
+| 14 | 0x78072BA5f77d01B3f5B1098df73176933da02A7A |              1117 |             19.4094 | 3.65%             |
+| 15 | 0x1f92eE8cf6483677C0c6381C48e2Bf272764f0CC |              1094 |             19.0475 | 3.58%             |
+| 16 | 0xd714338098Daaf32e46a20fF1293f57EFf04Dcca |              1121 |             18.6505 | 3.51%             |
+| 17 | 0xca317A4ecCbe0Dd5832dE2A7407e3c03F88b2CdD |               859 |             16.7813 | 3.16%             |
+| 18 | 0xD91EEcc267ff626399798040d88DE62c9e70Acf0 |              1384 |             16.697  | 3.14%             |
+| 19 | 0x84ba027280cC6cc1e592a01270c5f21A494F46Cb |              1041 |             15.7526 | 2.96%             |
 
 #### Notes on Neglected Revenue Data
+Quantifying the losses incurred by vanilla blocks is a complex task since we cannot always asses with 100% certainty which validator is leveraging MEVboost, from which relayer, and to which extent. The reasons for this are:
+
+- Some relayers don't always make their MEV bid data available to the public, which could cause a wrong classification of vanilla blocks while these blocks actually had a bid from a relayer. For the scope of this report, we simply classify slots with no RP-approved relayer in our dataset (see specifics around the underlying dataset here) as vanilla blocks.
+- If a validator is not registered with any MEV relayer in a slot, no max_bid will be visible in the dataset. For the purposes of this analysis, we ignore these slots from the vanilla block dataset when calculating the revenue loss due to vanilla blocks. These blocks are also ingored from the dataset used to calculate the loss due to bid gaps (i.e. the reward accepted is lower than the max bid available to the node operator in that slot).
+- See other important data caveats for the underlying dataset here (XXX).
 
 #### Conclusions and Recommendations
 
