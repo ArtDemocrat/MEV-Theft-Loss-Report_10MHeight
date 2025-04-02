@@ -456,8 +456,11 @@ Based on the information presented on this report we concluded that:
 - With that last point functioning as a segue to the next steps, we propose to:
 
 ➡️ Refresh this report two times per year to identify pattern changes or drastic changes in theft prevalence (Cost TBD in case the GMC cannot take over the reporting infrastructure. We are more than happy, however, to ensure the GMC can take over it).
+
 ➡️ Evaluate lean, cost-efficient tools to track MEV loss events on an ongoing basis (we are happy to support the GMC with this, but is not covered/compensated under the scope of this grant). These could potentially replace a quarterly, manually-produced, report.
+
 ➡️ Coordinate research with RP community members to define in-protocol mechanisms that can act on and mitigate MEV loss cases.
+
 ➡️ We look forward to hearing the community, GMC, and pDAO thoughts/feedbacks/comments on this research in the retroactive grant posted in the RP governance forum. We specifically look for feedback and ideas on the three steps proposed above (which would serve as the basis to request a follow-up bounty to continue this project).
 
 **Authored by:**
