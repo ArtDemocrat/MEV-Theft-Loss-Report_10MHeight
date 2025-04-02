@@ -27,7 +27,7 @@ As stated in the grant request, the benefits we look to generate out of this rep
 The analysis starts right after the MEV grace period ended at slot 5203679 (2022-11-24 05:35:39Z UTC; [see Discord message](https://discord.com/channels/405159462932971535/405163979141545995/1044108182513012796)), and ends at slot 9,899,999 (2024-09-06 12:00:11Z UTC). We will name this set of datapoints "the entire distribution" in this analysis.
 
 ## Workstreams, Resources and Results
-To produce this report we split the activities required between @ramana, who take are of all the data mining effort (see scripts in this repository: XXX) and @ArtDemocrat, who focused on the data analysis and insights generation (all scripts are found in this reporsitory).
+To produce this report we split the activities required between @ramana, who took are of all the data mining effort (see ramana's scripts [in this repository](https://github.com/xrchz/rockettheft/tree/rt2)) and @ArtDemocrat, who focused on the data analysis and insights generation (all scripts are found in this reporsitory).
 
 ### Dataset Preparation
 We followed 3 data treatment steps in order to prepare the dataset for the full analysis:
@@ -189,7 +189,7 @@ Once that we confirmed that RP validators stand on a level playing field with no
 [**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_theft_timeseries.py)
 In this section we analyze whether a RP validator behaved honestly by sending MEV rewards to the correct fee recipients defined by the protocol.
 
-First we begin by analyzing the MEV rewards of each slot where we deemed the fee recepient for a proposed block as incorrect. As mentioned in the "Consinstency Check - Global Conclusion" section of this report, in the time between the grace period ended, and until slot 8,499,999, 118,728 blocks were proposed by RP validators. During the analyzed timeframe, 92 cases of MEV Theft ocurred (vs. 17 such cases identified by @ramana and @Valdorff in their [initial MEV Theft report](https://github.com/xrchz/rockettheft/blob/main/README.md#current-losses) from July 2023). If we analyze these cases we can see that the smoothing pool is slightly more affected (73 theft cases) vs non-opt-in validators (19 theft cases). This derived in a total loss of 8.37 ETH for the rocketpool protocol (vs. 2.11 ETH identified in the initial report), split as shown below:
+First we begin by analyzing the MEV rewards of each slot where we deemed the fee recepient for a proposed block as incorrect. As mentioned in the "Consistency Check - Global Conclusion" section of this report, in the time between the grace period ended, and until slot 8,499,999, 118,728 blocks were proposed by RP validators. During the analyzed timeframe, 92 cases of MEV Theft ocurred (vs. 17 such cases identified by @ramana and @Valdorff in their [initial MEV Theft report](https://github.com/xrchz/rockettheft/blob/main/README.md#current-losses) from July 2023). If we analyze these cases we can see that the smoothing pool is slightly more affected (73 theft cases) vs non-opt-in validators (19 theft cases). This derived in a total loss of 8.37 ETH for the rocketpool protocol (vs. 2.11 ETH identified in the initial report), split as shown below:
 
 📄 **Theft Summary:**
 
