@@ -32,9 +32,9 @@ To produce this report we split the activities required between @ramana, who tak
 ### Dataset Preparation
 We followed 3 data treatment steps in order to prepare the dataset for the full analysis:
 
-📁 **CSV data extraction** from the .gz.csv compressed folders produced by @ramana as a result of the data mining effort, which were downloaded locally for processing. Script: YYY
+📁 **CSV data extraction** from the .gz.csv compressed folders produced by @ramana as a result of the data mining effort, which were downloaded locally for processing. [**--> Task Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_data1_ziptocsv.py)
 
-📄 **Slot Dataset Processing & MEV Theft Flagging**: Clean, standardize, and enrich Ethereum slot-level CSV data as part of the Rocketpool MEV theft analysis project. It processes raw slot data files and produces cleaned, standardized CSV files that can be used for further analysis and visualization. Script: YYY
+📄 **Slot Dataset Processing & MEV Theft Flagging**: Clean, standardize, and enrich Ethereum slot-level CSV data as part of the Rocketpool MEV theft analysis project. It processes raw slot data files and produces cleaned, standardized CSV files that can be used for further analysis and visualization. [**--> Task Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_data2_slotclassification.py)
 
 **What the Script Does**
 - Reads raw CSV files from the SOURCE_PATH directory.
@@ -53,7 +53,7 @@ The dataset used in this analysis underwent a structured preparation and classif
 - Slot-level MEV Averaging: For contextual analysis, the average MEV bid for each slot was calculated based on two separate data sources (max_bid and mevmonitor_max_bid).
 - All processed files were saved in a structured output folder and used as the standardized input for subsequent analyses (see sections below).
 
-✅ **Slot Dataset Integrity & Quality Check**: Validate the completeness and data quality of the Ethereum slot-level dataset used in the Rocketpool MEV theft analysis project. It performs structural and continuity checks on all raw .csv files to ensure slot coverage, data quality, and integrity across millions of slot entries.
+✅ **Slot Dataset Integrity & Quality Check**: Validate the completeness and data quality of the Ethereum slot-level dataset used in the Rocketpool MEV theft analysis project. It performs structural and continuity checks on all raw .csv files to ensure slot coverage, data quality, and integrity across millions of slot entries. [**--> Task Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_data3_datacompletenesscheck.py)
 
 **What the Script Does**
 - File Integrity: Identifies broken or unreadable files and flags files smaller than expected size.
@@ -125,74 +125,78 @@ The dataset used in this analysis underwent a structured preparation and classif
 
 ⚠️ Missing slot range examples: [6100000, 6100001, 6100002, 6100003, 6100004] ... [6199995, 6199996, 6199997, 6199998, 6199999]
 ```
-### Results analysis: Rocketpool vs Non-Rocketpool Maximum Bid (Ξ) Consistency Check
+### Results analysis
+
+#### MEV Bid Consistency Check: Rocket Pool vs Non-Rocket Pool
+[**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_maxbids_cumdistr.py)
 The first thing that we analyze is whether Rocketpool ("RP") is consistently lucky or unlucky against the non-RP Ethereum validators when it comes to the maximum bids received by ethereum relayers. The conclusion: No. As expected, RP validator's "luck" in terms of bids received (and accepted) is aligned with the non-RP validator cohort.
 
-We confirmed this by plotting a cumulative distribution function ("CDF") for the maximum bids on all Ethereum slots (blue dots/line) and another one for RP blocks (orange dots/line). See CDF charts below. Besides doing a visual evaluation for each of the cohorts, we apply the Kolmogorov-Smirnov (K-S) statistical evaluation on the entire distribution, and on subsets of the entire distribution, in order to compare RP vs non-RP maximum bids distribution (see table below).
+We confirmed this by plotting a cumulative distribution function ("CDF") for the maximum bids on all Ethereum slots (blue dots/line) and another one for RP blocks (orange dots/line). See CDF charts below. Besides doing a visual evaluation for each of the cohorts, we apply the Kolmogorov-Smirnov (K-S) and p-value statistical evaluation on the entire distribution, and on subsets of the entire distribution, in order to compare RP vs non-RP maximum bids distribution (see table below).
 
 The Kolmogorov-Smirnov (K-S) test is a non-parametric test that compares two samples to see if they come from the same distribution. It's useful in this case because it doesn't assume any specific distribution of the data and is sensitive to differences in both location and shape of the empirical cumulative distribution functions of the two samples analyzed. The K-S test returns a D statistic and a p-value. The D statistic represents the maximum difference between the two cumulative distributions, and the p-value tells us the probability of observing the data assuming the null hypothesis (i.e. that the samples are from the same distribution) is true.
 
 - **K-S statistic (D)**: The greater this value (closer to 1.0), the larger the maximum difference between the CDFs, suggesting a greater discrepancy between the two groups. The lower this value (closer to 0.0), the more the distributions of the two samples are similar or the same.
 - **p-value**: A small p-value (typically ≤ 0.05) suggests that the samples come from different distributions. If this value is less than or equal to 0.05, the difference in distributions is considered statistically significant, meaning it's unlikely the difference is due to random chance.
 
-#### Consistency Check - Global Conclusion (Analysis Script: YYY)
 If we take a look at the entire distribution of slots which had max bids (i.e. an offer was received by at least one MEV relayer), **we see no evidence that RP gets better or worse bids vs non-RP validators**.
 
 Analysis for slots with MEV rewards between 10**-5 ETH and 10**5 ETH (exhaustive range):
 ```
-Step 1: Full dataset created: 4597000 rows, 28 columns
-Step 2: Dropped rows due to missed blocks (validator index empty): 42297 rows
-Step 3: Dropped rows due to missing max_bid values: 154008 rows
+Step 1: Full dataset created: 4697000 rows, 28 columns
+Step 2: Dropped rows due to missed blocks (validator index empty): 44066 rows
+Step 3: Dropped rows due to missing max_bid values: 158905 rows
 Step 4: Dropped rows due to invalid `is_rocketpool` values: 0 rows
-Step 5: Final dataset size: 4400695 rows, 29 columns
-Total number of rows being plotted between 1.00e-05 ETH and 1.00e+05 ETH: 4400695
-Number of 'Is RocketPool: TRUE' datapoints: 116336
-Number of 'Is RocketPool: FALSE' datapoints: 4284359
+Step 5: Final dataset size: 4494029 rows, 29 columns
+Total number of rows being plotted between 1.00e-05 ETH and 1.00e+05 ETH: 4494029
+Number of 'Is RocketPool: TRUE' datapoints: 118728
+Number of 'Is RocketPool: FALSE' datapoints: 4375301
 ✅ K-S statistic: 0.0044
-✅ p-value: 2.6695e-02
+✅ p-value: 2.1038e-02
 ```
-![CDF 10^-5 - 10^5](https://github.com/user-attachments/assets/1f4d5355-0981-4f93-834f-c3443fdd7570)
+![CDF 10^-5 - 10^5](https://github.com/user-attachments/assets/a158ae18-7eee-413f-a08e-d886fe1816f4)
 
-#### Consistency Check - Cohort Breakdown Conclusion (Analysis Script: YYY)
+#### MEV Bid Consistency Check: - Cohort Breakdown Conclusion
+[**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_maxbids_comptable.py)
 If we break this analysis down to specific maximum bid ranges, we do see discrepancies between the RP and non-RP cohorts, specifically in very low and very high maximum bid ranges (where RP data becomes scarce). For the purpose of this document we will treat both datasets as similar (i.e. both RP and non-RP cohorts have the same "luck" when it comes to receiving maximum bids from Rocketpool-approved relays).
 
 ```
-Step 1: Full dataset created: 4597000 rows, 28 columns
-Step 2: Dropped rows with no max bid or missed blocks: 196305 rows
+Step 1: Full dataset created: 4697000 rows, 28 columns
+Step 2: Dropped rows with no max bid or missed blocks: 202971 rows
 Step 3: Dropped rows due to invalid `is_rocketpool` values: 0 rows
-Step 4: Final dataset size: 4400695 rows, 29 columns
+Step 4: Final dataset size: 4494029 rows, 29 columns
 ```
 | Range        |   # of Slots |   # of RP Slots |   # of non-RP Slots | K-S statistic                   | p-value                         |
 |--------------|--------------|-----------------|---------------------|---------------------------------|---------------------------------|
-| 0-0.01 ETH   |        15345 |             440 |               14905 | :white_check_mark: 0.0261405569 | :white_check_mark: 0.9248525964 |
-| 0.01-0.1 ETH |      3263516 |           86002 |             3177514 | :white_check_mark: 0.0040425225 | :white_check_mark: 0.1291674574 |
-| 0.1-1 ETH    |      1072767 |           28609 |             1044158 | :white_check_mark: 0.0042381293 | :white_check_mark: 0.6975153355 |
-| 1-10 ETH     |        46765 |            1223 |               45542 | :white_check_mark: 0.0213307993 | :white_check_mark: 0.6424829761 |
-| >10 ETH      |         2302 |              62 |                2240 | :warning: 0.0888680876          | :white_check_mark: 0.6930415397 |
-| Total        |      4400695 |          116336 |             4284359 | :white_check_mark: 0.0043637520 | :warning: 0.0266949435          |
+| 0-0.01 ETH   |        16204 |             463 |               15741 | :white_check_mark: 0.0258892496 | :white_check_mark: 0.9158305749 |
+| 0.01-0.1 ETH |      3340145 |           87989 |             3252156 | :white_check_mark: 0.0043128234 | :white_check_mark: 0.0823447725 |
+| 0.1-1 ETH    |      1088047 |           28983 |             1059064 | :white_check_mark: 0.0040162022 | :white_check_mark: 0.7514470407 |
+| 1-10 ETH     |        47301 |            1231 |               46070 | :white_check_mark: 0.0221188856 | :white_check_mark: 0.5925315540 |
+| >10 ETH      |         2332 |              62 |                2270 | :warning: 0.0884609919          | :white_check_mark: 0.6981308943 |
+| Total        |      4494029 |          118728 |             4375301 | :white_check_mark: 0.0044371574 | :warning: 0.0210381486          |
 
 It is worth mentioning that the p-value test on the total dataset yields a p-value below the conventional ≤ 0.05 threshold. However, the corresponding K-S statistic is extremely small (~0.004), indicating that the difference, while statistically significant due to the large dataset size, is negligible in practical terms. Range-wise analysis shows no significant differences in most ranges.
 
-### Results Analysis: Systematic MEV Loss
+### Results Analysis: Systematic MEV Theft and Loss (due to neglection of MEV bids)
 Once that we confirmed that RP validators stand on a level playing field with non-RP validators, we proceed to analyze cases of revenue loss within the RP protocol. In order to analyze MEV loss cases we define 2 types of revenue losses for the RP protocol (red arrows in the image below):
 
 1. **MEV Theft**: the fee recipient for a block (according to either the relay's payload if mev_reward is present, or the Beacon chain otherwise) was incorrect. This happens when the fee recipient is not set to either the smoothing pool ("SP") if a node is opted-in the SP, or the node's fee recipient otherwise.
 
-2. **Neglected Revenue**: the node proposes a vanilla block, losing profits against a scenario where an MEV-boost-optimized block (with traditionally higher MEV rewards) could have been proposed.
+2. **MEV Loss - Neglected Revenue**: the node proposes a vanilla block, losing profits against a scenario where an MEV-boost-optimized block (with traditionally higher MEV rewards) could have been proposed.
 
 ![RP MEV Flows](https://github.com/user-attachments/assets/dda404ad-ed26-42f9-9fd0-1ba51f607086)
 
-#### MEV Theft Analysis Results (Analysis Script: YYY)
+#### MEV Theft Analysis Results 
+[**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_theft_timeseries.py)
 As explained in the "Consinstency Check - Global Conclusion" section of this report, in the time between the grace period ended, and until slot 8,499,999, 116,336 blocks were proposed by RP validators. In this section we analyze whether a RP validator behaved honestly by sending MEV rewards to the correct fee recipients defined by the protocol.
 
-First we begin by plotting the MEV rewards of each slot where we deemed the fee recepient for a proposed block as incorrect. During the analyzed timeframe, 92 cases of MEV Theft ocurred (vs. 17 such cases identified by @ramana and @Valdorff in their [initial MEV Theft report](https://github.com/xrchz/rockettheft/blob/main/README.md#current-losses) from July 2023). If we analyze these cases we can see that the smoothing pool is slightly more affected (73 theft cases) vs non-opt-in validators (19 theft cases). This derived in a total loss of 8.37 ETH for the rocketpool protocol (vs. 2.11 ETH identified in the initial report), split as shown below:
+First we begin by analyzing the MEV rewards of each slot where we deemed the fee recepient for a proposed block as incorrect. During the analyzed timeframe, 92 cases of MEV Theft ocurred (vs. 17 such cases identified by @ramana and @Valdorff in their [initial MEV Theft report](https://github.com/xrchz/rockettheft/blob/main/README.md#current-losses) from July 2023). If we analyze these cases we can see that the smoothing pool is slightly more affected (73 theft cases) vs non-opt-in validators (19 theft cases). This derived in a total loss of 8.37 ETH for the rocketpool protocol (vs. 2.11 ETH identified in the initial report), split as shown below:
 
 📄 **Theft Summary:**
 
-| Theft Type           | Total Flagged   | Reward = 0     | Reward > 0     |  Stolen MEV Rewards (ETH) |   Neglected/Stolen Revenue (ETH) |
-|----------------------|-----------------|----------------|----------------|---------------------------|----------------------------------|
-| Smoothing Pool Theft | 4,222           | 4,149 (98.27%) | 73 (1.73%)     |                      6.09 |                           364.11 |
-| Regular Theft        | 3,642           | 3,623 (99.48%) | 19 (0.52%)     |                      2.28 |                           347.46 |
+| Theft Type           | Total Blocks Flagged   | ...where MEV Reward = 0     |   Gap vs Maximum Bid (ETH)       | where MEV Reward > 0     |  Stolen MEV Rewards (ETH) |
+|----------------------|------------------------|-----------------------------|----------------------------------|--------------------------|---------------------------|
+| Smoothing Pool Theft | 4,326                  | 4,253 (98.31%)              |                           368.56 | 73 (1.69%)               |                      6.09 |
+| Regular Theft        | 3,785                  | 3,766 (99.50%)              |                           354.12 | 19 (0.50%)               |                      2.28 |
 
 As seen from the nubmers above, we identified 92 cases (73 in the smoothing pool and 19 among non-opt-in validators) where a mev_reward amount was observed in the slot and was sent to an incorrect fee recipient. Additionally, there are 4,149 cases within the smoothing pool and 3,623 cases among non-opt-in validators where even if an mev_reward was not registered for the slot (i.e. mev = 0), an incorrect usage of the fee recipient is observed. These cases sum-up to a neglected/potentially stolen revenue of 711,58 ETH if we take the maximum bid data available for these slots as a proxy for the ETH which could have been stolen (i.e. a worst case scenario estimation). The MEV loss related to these slots is covered in the following section of this report ("Neglected Revenue"), since they fall under the category of "vanilla blocks" due to the absence of an MEV relayer and mev_reward for the proposed block. 
 
@@ -340,7 +344,8 @@ It is worth mentioning that even though sending MEV rewards to the [rETH contrac
 - We see 5 cases of node operators committing serial theft (>2 theft episodes) which, consciously or unconsciously, make up >70% of the stolen misappropriated MEV reeward amount (8.37 ETH).
 - Finally, if we consider not only the 92 slots where an mev_reward was observerd for the block, but rather the total (4,222+3,642)= 7,864 cases where an incorrect fee recipient was used, the theft incidence within RP climbs to 6.7%. This is a far more dangerous and material revenue loss area which we cover in the next section: "Neglected Revenue".
 
-#### MEV Loss Analysis Results - Neglected Revenue (Script: YYY)
+#### MEV Loss Analysis Results - Neglected Revenue 
+[**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_loss_alldata.py)
 The second case of revenue loss for the RP protocol is driven by validators which do not choose maximize the MEV rewards made available to them by the Ethereum MEV supply chain. This happens when a RP validator does not register with any MEV relayer and produces so called "vanilla blocks". These blocks don't follow the transaction-ordering reward-maximizing logic which MEV searchers, builders, and relayers pass on to validators. For the purpose of this analysis, vanilla blocks were quantified based on the slots where no MEV reward data was registered for a slot from any of the three MEV sources utilized. Based on this logic, we can conclude the following:
 
 - Vanilla blocks have been proposed by RP validators in 7,364 slots since the grace period ended (3,8k smoothing pool operators and 3,6k non-opted-in operators).
@@ -377,7 +382,7 @@ In order to visually represent the loss driven by vanilla blocks we present the 
 ![Neglected MEV Reward per Slot by SP Status](https://github.com/user-attachments/assets/f354c1d5-880c-4cc7-ad83-778ed80508b4)
 
 **Analysis Tables: Top Revenue Loss drivers for Vanilla Blocks and Max Bid Gaps**
-📄 **Top 20 Node Operators (Vanilla Block Losses):**
+ **Top 20 Node Operators (Vanilla Block Losses):**
 
 |    | node_address                               |   vanilla_block_count |   eth_mev_loss | % of total loss   |
 |----|--------------------------------------------|-----------------------|----------------|-------------------|
@@ -434,8 +439,18 @@ Quantifying the losses incurred by vanilla blocks is a complex task since we can
 - If a validator is not registered with any MEV relayer in a slot, no max_bid will be visible in the dataset. For the purposes of this analysis, we ignore these slots from the vanilla block dataset when calculating the revenue loss due to vanilla blocks. These blocks are also ingored from the dataset used to calculate the loss due to bid gaps (i.e. the reward accepted is lower than the max bid available to the node operator in that slot).
 - See other important data caveats for the underlying dataset here https://github.com/xrchz/rockettheft/blob/main/README.md#data-notes (XXX Ramana to confirm).
 
-#### Conclusions and Recommendations
+### Conclusions and Recommendations
+Based on the information presented on this report we concluded that:
 
+- We see an MEV theft incidence rate in up to 1.02% across RP-proposed blocks since the post-Redstone update grace period ended (0,06% incidence rate if we only take blocks that actually registered an mev_reward).
+- There could potentially be up to 1.731,6 ETH left on the table from validators not capturing max_bid to the full extent in which MEV rewards are passed on to them (sometimes due to relayer preferences from validators). - From that, 620.4 ETH is confirmed as actual vanilla block MEV losses, coming from slots where no `mev_reward_relay' was registered at all.
+- The data analyzed, especially around vanilla block neglected revenue, is prone to have inacuracies due to the complex datasource landscape when it comes to the MEV supply chain. For this reason, we propose to join forces with NonFungibleYokem and Cayos from the Rocketpool community to keep on working on a unified data source which can become the source of truth for these types of analyis. This point, however, would become less relevant as soon as the protocol moves to MEV capture Phase 3 "Required", since the vanilla block loss would be de facto eliminated.
+- With that last point functioning as a segue to the next steps, we propose to:
+
+Refresh this report once per quarter, working jointly with NonFungibleYokem and Cayos to produce a unified Rocketpool dataset.
+Evaluate lean, cost-efficient tools to track MEV loss events on an ongoing basis. These could potentially replace a quarterly, manually-produced, report. Point 1. would anyhow still need to be completed for this purpose.
+Coordinate research with RP community members to define in-protocol mechanisms that can act on and mitigate MEV loss cases.
+We look forward to hearing the community, GMC, and pDAO thoughts/feedbacks/comments on this research in the retroactive grant posted in the RP governance forum. We specifically look for feedback and ideas on the three steps proposed above (which would serve as the basis to request a follow-up bounty to continue this project).
 
 **Authored by:**
 <p align="left">
