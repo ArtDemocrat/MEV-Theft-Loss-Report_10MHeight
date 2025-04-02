@@ -2,6 +2,8 @@
 What the script does: Plots in a scater chart the cases (split by SP and Opt-out Operators) where theft happened.
 Generates summary table with all theft cases (i.e. misusage of protocol-defined fee recipients), split by those which did receive an MEV reward (outright theft) and those where the MEV Rward = 0 (no theft, but incurred in fee distributor misusage).
 Plots 2 tables listing 1) all of the SP-related theft slots and rewards stolen and 2) all of the Opt-out Operators theft slots and rewards stolen.
+Lists all the node operator addresses which incurred in MEV theft, the number of events where it happened, and the ETH amount stolen as well as the % of the total ETH theft.
+Counts the number of slots where MEV rewards were sent to the rETH contract, and the ETH amounts related to those events.
 """
 
 import os
