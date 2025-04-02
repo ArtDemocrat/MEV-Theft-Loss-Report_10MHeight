@@ -1,3 +1,7 @@
+"""
+What the script does: CSV data extraction from the .gz.csv compressed folders produced by @ramana as a result of the data mining effort, which were downloaded locally for processing.
+"""
+
 import os
 import gzip
 import shutil
