@@ -440,11 +440,20 @@ In order to visually represent the loss driven by vanilla blocks we present the 
 | 19 | 0x84ba027280cC6cc1e592a01270c5f21A494F46Cb |              1041 |             15.7526 | 2.96%             |
 
 #### Notes on Neglected Revenue Data
-Quantifying the losses incurred by vanilla blocks is a complex task since we cannot always asses with 100% certainty which validator is leveraging MEVboost, from which relayer, and to which extent. The reasons for this are:
+Quantifying the losses incurred by vanilla blocks is a complex task since we cannot always asses with 100% certainty which validator is leveraging MEV boost, from which relayer, and to which extent. The reasons for this are:
 
-- Some relayers don't always make their MEV bid data available to the public, which could cause a wrong classification of vanilla blocks while these blocks actually had a bid from a relayer. For the scope of this report, we simply classify slots with no RP-approved relayer in our dataset (see specifics around the underlying dataset here) as vanilla blocks.
-- If a validator is not registered with any MEV relayer in a slot, no max_bid will be visible in the dataset. For the purposes of this analysis, we ignore these slots from the vanilla block dataset when calculating the revenue loss due to vanilla blocks. These blocks are also ingored from the dataset used to calculate the loss due to bid gaps (i.e. the reward accepted is lower than the max bid available to the node operator in that slot).
-- See other important data caveats for the underlying dataset here https://github.com/xrchz/rockettheft/blob/main/README.md#data-notes (XXX Ramana to confirm).
+- If a validator is not registered with any MEV relayer in a slot, no `max_bid` will be visible in the dataset. For the purposes of this analysis, we ignore these slots from the vanilla block dataset when calculating the revenue loss due to vanilla blocks. These blocks are also ignored from the dataset used to calculate the loss due to bid gaps (i.e. the reward accepted is lower than the max bid available to the node operator in that slot).
+- Some relayers don't always make their MEV bid data available to the public, which could cause a wrong classification of vanilla blocks while these blocks actually had a bid from a relayer. For the scope of this report, we simply classify slots with no RP-approved relayer in our dataset as vanilla blocks.
+- Even if a relayer made its MEV bid data public at some point, some relayers have been sunset or have gone offline, or have incorrect information in their database. We use the data from mevmonitor and beaconcha.in as-is. From our own relay-querying data (@ramana's dataset), the following caveats apply:
+
+- MEV bid data from these relays at these slots were ignored because the relays provided impossible or inconsistent data:
+    - bloXroute Regulated: 6209964, 8037005, 8053706, 8054714, 8065991
+    - bloXroute Max Profit: 6209620, 6209628, 6209637, 6209654, 6209657, 6209661, 6209675, 6209814, 6209827, 6209867, 6209871
+    - Ultra Sound: 8118421
+- The following relays were not queried for MEV bid data after the following slots because they had sunset or stopped responding before we were able to query them:
+    - Blocknative: 7344999 (instead of 7459420, which is when it was discontinued as an RP relay)
+    - Eden Network: 9690000 (instead of 9918523, which is around when it was discontinued)
+- The notes on the dataset from a previous iteration of this report, [available here](https://github.com/xrchz/rockettheft?tab=readme-ov-file#data-notes), may also be of interest
 
 ### Notes on Data Definitions
 Below we show how we are calculating each of the metrics presented above in this report, including any peripheral logic (exclusions, special considerations) applied on the KPIs. 
