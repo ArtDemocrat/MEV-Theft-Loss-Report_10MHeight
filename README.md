@@ -18,7 +18,7 @@ During the [first research phase](https://github.com/ArtDemocrat/MEV-Theft-Loss-
 
 As stated in the grant request, the benefits we look to generate out of this report are as follows:
 
-- **Potential rETH holders:** rETH’s APR can be proactively protected by shedding light on this matter and acting on time. A competitive rETH EPR is essential to drive demand towards rETH.
+- **Potential rETH holders:** rETH’s APR can be proactively protected by shedding light on this matter and acting on time. A competitive rETH APR is essential to drive demand towards rETH.
 - **rETH holders:** Same as above.
 - **Potential Node Operators (NOs):** Higher staking APR by enforcing MEV relayer usage (either individually or for the entire smoothing pool NO cohort).
 - **Community:** Sensitize the Rocket Pool community to the relevance of honest acting (as we observe and report misbehaviour) and to the maximization of MEV rewards for protocol competitiveness.
