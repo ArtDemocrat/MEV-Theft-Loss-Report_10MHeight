@@ -203,7 +203,7 @@ Additionally, there are 4,312 cases within the smoothing pool and 3,796 cases am
 | Smoothing Pool Theft | 4,326                  | 4,312 (98.25%)              |                           368.56 | 77 (1.75%)               |                      6.20 |
 | Regular Theft        | 3,785                  | 3,796 (99.50%)              |                           354.12 | 19 (0.50%)               |                      2.28 | 
 
-In the chart below we plot the 96 cases of theft: smoothing pool cases vs the non-opt-in cases. The Y axis shows the magnitude of the 93 stolen MEV rewards (Y axis) and the slot where these took place is shown in the X axis). Theft has clearly become more prevalent towards recent slots.
+In the chart below we plot the 96 cases of theft: smoothing pool cases vs the non-opt-in cases. The Y axis shows the magnitude of the 96 stolen MEV rewards (Y axis) and the slot where these took place is shown in the X axis). Theft has clearly become more prevalent towards recent slots.
 
 ![MEV Theft by SP or NonSP - timeseries](https://github.com/user-attachments/assets/61159001-731b-478e-82a3-e9b2ad6988ca)
 
