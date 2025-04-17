@@ -133,7 +133,7 @@ The dataset used in this analysis underwent a structured preparation and classif
 
 #### MEV Bid Consistency Check: Rocket Pool vs Non-Rocket Pool
 [**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_maxbids_cumdistr.py)
-The first thing that we analyze is whether Rocketpool ("RP") is consistently lucky or unlucky against the non-RP Ethereum validators when it comes to the maximum bids received by ethereum relayers. The conclusion: No. As expected, RP validator's "luck" in terms of bids received (and accepted) is aligned with the non-RP validator cohort.
+The first thing that we analyze is whether Rocketpool ("RP") is consistently lucky or unlucky against the non-RP Ethereum validators when it comes to the maximum bids received by ethereum relayers. The conclusion: No. As expected, RP validator's "luck" in terms of bids received is aligned with the non-RP validator cohort.
 
 We confirmed this by plotting a cumulative distribution function ("CDF") for the maximum bids on all Ethereum slots (blue dots/line) and another one for RP blocks (orange dots/line). See CDF charts below. Besides doing a visual evaluation for each of the cohorts, we apply the Kolmogorov-Smirnov (K-S) and p-value statistical evaluation on the entire distribution, and on subsets of the entire distribution, in order to compare RP vs non-RP maximum bids distribution (see table below).
 
@@ -157,8 +157,6 @@ The Kolmogorov-Smirnov (K-S) test is a non-parametric test that compares two sam
 
 - **K-S statistic (D)**: The greater this value (closer to 1.0), the larger the maximum difference between the CDFs, suggesting a greater discrepancy between the two groups. The lower this value (closer to 0.0), the more the distributions of the two samples are similar or the same.
 - **p-value**: A small p-value (typically ≤ 0.05) suggests that the samples come from different distributions. If this value is less than or equal to 0.05, the difference in distributions is considered statistically significant, meaning it's unlikely the difference is due to random chance.
-
-If we take a look at the entire distribution of slots which had max bids (i.e. an offer was received by at least one MEV relayer), **we see no evidence that RP gets better or worse bids vs non-RP validators**.
 
 #### MEV Bid Consistency Check: - Cohort Breakdown Conclusion
 [**---> Analysis Script**](https://github.com/ArtDemocrat/MEV-Theft-Loss-Report_10MHeight/blob/main/rptheft_maxbids_comptable.py)
