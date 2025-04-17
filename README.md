@@ -490,7 +490,7 @@ Based on the information presented on this report we concluded that:
 
 - We see an MEV theft incidence rate between 0.08% (counting pure MEV theft events) and 6.8% (counting also 0 MEV reward blocks where the fee recipient was misused) across RP-proposed blocks since the post-Redstone update grace period ended.
 - There could potentially be up to 2,546.37 ETH left on the table from validators not capturing max_bid to the full extent in which MEV rewards are passed on to them (sometimes due to relayer preferences from validators).
-- Out of that amount, 749,34 ETH is confirmed as actual vanilla block MEV losses, coming from slots where no `mev_reward_relay' was registered at all.
+- Out of that amount, 749,34 ETH is confirmed as actual vanilla block MEV losses, coming from slots where no `mev_reward_relay` was registered at all.
 - The data analyzed, especially around vanilla block neglected revenue, is prone to have inacuracies due to the complex datasource landscape when it comes to the MEV supply chain. For this reason, we ran the analysis pulling from 3 different MEV sources as mentioned in the introduction (joining forces with NonFungibleYokem) from the Rocketpool community, aiming to achieve a unified data source which can become the source of truth for these types of analyis. This point, however, would become less relevant as soon as the protocol moves to MEV capture Phase 3 "Required", since the vanilla block loss would be de facto eliminated.
 - With that last point functioning as a segue to the next steps, we propose to:
 
