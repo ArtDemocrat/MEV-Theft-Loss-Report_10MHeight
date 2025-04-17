@@ -200,8 +200,8 @@ Additionally, there are 4,312 cases within the smoothing pool and 3,796 cases am
 
 | Theft Type           | Total Blocks Flagged   | ...where MEV Reward = 0     |   Gap vs Maximum Bid (ETH)       | where MEV Reward > 0     |  Stolen MEV Rewards (ETH) |
 |----------------------|------------------------|-----------------------------|----------------------------------|--------------------------|---------------------------|
-| Smoothing Pool Theft | 4,326                  | 4,312 (98.25%)              |                           368.56 | 77 (1.75%)               |                      6.20 |
-| Regular Theft        | 3,785                  | 3,796 (99.50%)              |                           354.12 | 19 (0.50%)               |                      2.28 | 
+| Smoothing Pool Theft | 4,389                  | 4,312 (98.25%)              |                           372.32 | 77 (1.75%)               |                      6.20 |
+| Regular Theft        | 3,815                  | 3,796 (99.50%)              |                           355.63 | 19 (0.50%)               |                      2.28 | 
 
 In the chart below we plot the 96 cases of theft: smoothing pool cases vs the non-opt-in cases. The Y axis shows the magnitude of the 96 stolen MEV rewards (Y axis) and the slot where these took place is shown in the X axis). Theft has clearly become more prevalent towards recent slots.
 
