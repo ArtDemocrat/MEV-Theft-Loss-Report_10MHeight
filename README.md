@@ -42,6 +42,7 @@ We followed 3 data treatment steps in order to prepare the dataset for the full 
 - Exports processed data to the PROCESSED_PATH folder as new CSV files.
 
 **Definitions Created in the Data Classification and Curation Process**
+
 The dataset used in this analysis underwent a structured preparation and classification process to enable reliable downstream analysis. Specifically, the following data curation steps were applied:
 - **Normalization of Ethereum Addresses**: All Ethereum addresses were standardized to lowercase to ensure consistency and avoid mismatches.
 - **Relay Name Standardization**: Relay names were cleaned and mapped to standardized identifiers to consolidate different naming conventions used across our data sources.
