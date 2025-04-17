@@ -29,6 +29,7 @@ The analysis starts at the time when the MEV grace period ended (slot 5203679, 2
 ## Workstreams, Resources and Results
 To produce this report we split the activities required between @ramana, who took are of all the data mining effort (see ramana's scripts [in this repository](https://github.com/xrchz/rockettheft/tree/rt2)) and @ArtDemocrat, who focused on the data analysis and insights generation (all scripts are found in this reporsitory).
 
+
 ### Dataset Preparation
 We followed 3 data treatment steps in order to prepare the dataset for the full analysis:
 
@@ -129,6 +130,7 @@ The dataset used in this analysis underwent a structured preparation and classif
 
 ⚠️ Missing slot range examples: [...]
 ```
+
 ### Results analysis
 
 #### MEV Bid Consistency Check: Rocket Pool vs Non-Rocket Pool
