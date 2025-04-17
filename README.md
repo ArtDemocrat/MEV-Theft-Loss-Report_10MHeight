@@ -27,7 +27,7 @@ As stated in the grant request, the benefits we look to generate out of this rep
 The analysis starts at the time when the MEV grace period ended (slot 5203679, 2022-11-24 05:35:39Z UTC); [see Discord message](https://discord.com/channels/405159462932971535/405163979141545995/1044108182513012796)), and ends at slot 9,999,999 (2024-09-20 09:20:11Z UTC). We will name this set of datapoints "the entire distribution" in this analysis. The infrastructure created for this analysis allows any moderately technical team to seamlessly extend the reporting period up to any desired slot height.
 
 ## Workstreams, Resources and Results
-To produce this report we split the activities required between @ramana, who took are of all the data mining effort (see ramana's scripts [in this repository](https://github.com/xrchz/rockettheft/tree/rt2)) and @ArtDemocrat, who focused on the data analysis and insights generation (all scripts are found in this reporsitory).
+To produce this report we split the activities required between @ramana, who took care of all the data mining effort (see ramana's scripts [in this repository](https://github.com/xrchz/rockettheft/tree/rt2)) and @ArtDemocrat, who focused on the data analysis and insights generation (all scripts are found in this reporsitory).
 
 
 ### Dataset Preparation
